@@ -1,16 +1,16 @@
 <?php
 
-function generateCost($email, $rut, $name, $lastName, $id){
+function generateCost($email, $rut, $name, $lastName, $id, $ticket){
    $client = new \GuzzleHttp\Client();         
      $body = $client->request('POST', 'https://app.payku.cl/api/transaction/', [
        'json' => [                
          'email' => 'finanzas@naturalmentesobrenatural.org', 
          'order' => $id, 
-         'subject' => 'Matricula '.$name.' '.$lastName.' '.$email.' '.$rut,
-         'amount' => 30,  
+         'subject' => $ticket,
+         'amount' => 5000,  
          'payment' => 1, 
-         'urlreturn' => 'https://matriculas.institutovc.cl/api.php',
-         'urlnotify' => 'https://matriculas.institutovc.cl/api.php',
+         'urlreturn' => 'https://eventos.ivch.cl/api.php',
+         'urlnotify' => 'https://eventos.ivch.cl/api.php',
          'marketplace' => '2af2b5f966c011b14179b1a1cfb0f37068aca6481fe1a240a8fd6af3f2e44a39'
          ],  
        'headers' => [                                  
@@ -21,32 +21,16 @@ function generateCost($email, $rut, $name, $lastName, $id){
    header('Location: '.$response->url);
 }
 
-function ifMemberExist($conn, $memberEmail)
-{
-   $stmt = $conn->prepare("SELECT * FROM member WHERE memberEmail='".$memberEmail."'");
-   $stmt->bindParam(1, $_GET['id'], PDO::PARAM_INT);
-   $stmt->execute();
-   $row = $stmt->fetch(PDO::FETCH_ASSOC);
-   if( ! $row)
-   {
-       return false;
-   }
-   else
-   {
-      return true;
-   }
-}
-
-if(!empty($_POST['name']) && !empty($_POST['lastName']) && !empty($_POST['rut']) && !empty($_POST['email']) && !empty($_POST['phone']))
+if(!empty($_POST['name']) && !empty($_POST['lastName']) && !empty($_POST['rut']) && !empty($_POST['email']) && !empty($_POST['phone']) && !empty($_POST['ticket']))
 {
    try {
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "INSERT INTO `member`(`memberEmail`, `memberPassword`, `memberName`, `memberLastName`, `memberRut`, `memberModal`, `memberBirth`, `memberPhone`, `memberAddress`, `memberLocal`, `memberChurch`, `memberStatus`, `memberGender`, `memberYear`) VALUES ('".$_POST['memberEmail']."', ' ', '".$_POST['memberName']."', '".$_POST['memberLastName']."', '".$_POST['memberRut']."', '', '".$new_date."', '".$_POST['memberPhone']."', '".$_POST['memberAddress']."', '".$_POST['memberLocal']."', '".$_POST['memberChurch']."', 1, '".$_POST['memberGender']."', '".$_POST['memberYear']."')";
+        $sql = "INSERT INTO `person`(`personName`, `personLastName`, `personRut`, `personEmail`, `personPhone`, `personExtra`) VALUES ('".$_POST['name']."','".$_POST['lastName']."','".$_POST['rut']."','".$_POST['email']."','".$_POST['phone']."','".$_POST['ticket']."')";
         $conn->exec($sql);
            try {
-               $stmt = $conn->query("SELECT * FROM `member` WHERE `memberEmail` ='".$_POST['memberEmail']."'");
+               $stmt = $conn->query("SELECT * FROM `person` WHERE `personId` ='".$_POST['memberEmail']."'");
                while ($row = $stmt->fetch()) {
-                   generateCost($row['memberEmail'], $row['memberRut'], $row['memberName'], $row['memberLastName'], $row['memberId']);
+                   generateCost($_POST['email'], $_POST['rut'], $_POST['name'], $_POST['lastName'], $row['personId'], $_POST['ticket']);
                }
            } catch(PDOException $e) {
            }
@@ -75,17 +59,15 @@ if(!empty($_POST['name']) && !empty($_POST['lastName']) && !empty($_POST['rut'])
       <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,700" rel="stylesheet">
    </head>
    <body>
-      <!-- Preloader -->
+      <!-- Preloader 
       <div class="loader">
-         <!-- Preloader inner -->
          <div class="loader-inner">
             <svg width="120" height="220" viewbox="0 0 100 100" class="loading-spinner" version="1.1" xmlns="http://www.w3.org/2000/svg">
                <circle class="spinner" cx="50" cy="50" r="21" fill="#111111" stroke-width="1.5"/>
             </svg>
          </div>
-         <!-- End preloader inner -->
       </div>
-      <!-- End preloader-->
+       End preloader-->
       <!--Wrapper-->
       <div class="wrapper">
          <!--Hero section-->
@@ -519,23 +501,23 @@ if(!empty($_POST['name']) && !empty($_POST['lastName']) && !empty($_POST['rut'])
                            <input placeholder="Apellido" value="" id="lastName" name="name" type="text" required>
                         </div>
                         <div class="col-sm-6">
-                           <input placeholder="Tu Rut" value="" id="rut" name="name" type="text" required>
+                           <input placeholder="Tu Rut" value="" id="rut" name="rut" type="text" required>
                         </div>
                         <div class="col-sm-6">
-                           <input placeholder="Tu WhatsApp" value="" id="phone" name="phone" type="text">
-                        </div>
-                        <div class="col-sm-6">
-                           <input placeholder="Tu Email" value="" id="email" name="email" type="text" required>
+                           <input placeholder="Tu WhatsApp" value="" id="phone" name="phone" type="text" required>
                         </div>
                         <div class="col-sm-6">
                            <input placeholder="Tu Email" value="" id="email" name="email" type="text" required>
                         </div>
                         <div class="col-sm-6">
-                           <input placeholder="Tu WhatsApp" value="" id="phone" name="phone" type="text">
+                           <input placeholder="Tu Email" value="" id="email" name="email" type="text" required>
+                        </div>
+                        <div class="col-sm-6">
+                           <input placeholder="Tu Iglesia" value="" id="extra" name="phone" type="text">
                         </div>
                         <div class="col-sm-6">
                            <div class="block-select">
-                              <select required name="">
+                              <select required name="ticket">
                                  <option value="" disabled selected hidden>Selecciona tu Entrada</option>
                                  <option value="8">Viernes 8 (Para Santiago)</option>
                                  <option value="9">Sábado 9 (Para Regiones)</option>

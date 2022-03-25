@@ -18,12 +18,14 @@ function checkRecordPayment($conn, $id){
         ]
     ])->getBody();
     $response = json_decode($body);
-    recordPayment($conn, $response->order, $id, $response->subject, $response->amount, $response->created_at);
+    createTicket($conn, $response->order);
+    $ticketId = getTicketId($conn, $response->order);
+    recordPayment($conn, $response->order, $id, $response->subject, $response->amount, $response->created_at, $response->status, $ticketId);
 }
 
-function recordPayment($conn, $userId, $paymentId, $subject, $amount, $created_at){
+function recordPayment($conn, $personId, $transactionId, $subject, $amount, $created_at, $status, $ticketId){
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "INSERT INTO `transaction`(`paymentId`, `userId`, `paymentSubject`, `paymentAmount`, `paymentDate`) VALUES ('".$paymentId."','".$userId."','".$subject."',".$amount.",'".$created_at."')";
+    $sql = "INSERT INTO `transaction`(`transactionId`, `personId`, `ticketId`, `transactionSubject`, `transactionAmount`, `transactionDate`, `transactionStatus`) VALUES (".$transactionId.", ".$personId.",".$ticketId.",'".$subject."','".$amount."','".$created_at."','".$status."')";
     $conn->exec($sql);
     sendEmail($conn, $userId, $subject, $amount);
 }
@@ -36,6 +38,21 @@ function sendEmail($conn, $memberId, $subject, $amount)
         welcomeInvoiceEmail($row['memberEmail'], $row['memberName'], $row['memberLastName'], $row['memberRut'], $row['memberBirth'], $row['memberPhone'], $row['memberAddress'], $row['memberLocal'], $row['memberChurch'], $row['memberGender'], $row['memberYear']);
         header('location: https://matriculas.institutovc.cl/bienvenida.php');
     }
+}
+
+function createTicket($conn, $personId){
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $sql = "INSERT INTO `ticket`(`eventId`, `personId`, `ticketState`) VALUES ('0',".$personId.",'VIGENTE')";
+    $conn->exec($sql);
+    return true;
+}
+
+function getTicketId($conn, $personId){
+    $stmt = $conn->query("SELECT * FROM ticket WHERE personId=".$personId);
+    while ($row = $stmt->fetch()) {
+        $value=$row['ticketId']);
+    }
+    return $value;
 }
 
 ?>
