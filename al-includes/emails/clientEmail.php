@@ -13,7 +13,6 @@ function clientEmail($conn, $personEmail, $subject, $personId){
             $personLastName=$rowx['personLastName'];
             $personRut=$rowx['personRut'];
             $personPhone=$rowx['personPhone'];
-            $personExtra=$rowx['personExtra'];
 
     $message = "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>
 <html xmlns='http://www.w3.org/1999/xhtml' xmlns:v='urn:schemas-microsoft-com:vml' xmlns:o='urn:schemas-microsoft-com:office:office'>

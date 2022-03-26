@@ -5,7 +5,7 @@ require 'al-includes/emails/clientEmail.php';
 require 'al-includes/emails/paymentEmail.php';
 require 'vendor/autoload.php';
 
-function generateCost($email, $rut, $name, $lastName, $id, $ticket){
+function generateCost($id, $ticket){
    $client = new \GuzzleHttp\Client();         
      $body = $client->request('POST', 'https://app.payku.cl/api/transaction/', [
        'json' => [                
@@ -38,23 +38,22 @@ function getCapacity($conn, $id){
     }
 }
 
-if(!empty($_POST['name']) && !empty($_POST['ln']) && !empty($_POST['rut']) && !empty($_POST['email']) && !empty($_POST['phone']) && !empty($_POST['ticket']))
-{
-   try {
-      $rut = strtoupper(str_replace(array('-', '.', "'", " "), '', $_POST['rut']))
+if (!empty($_POST['name']) && !empty($_POST['ln']) && !empty($_POST['rut']) && !empty($_POST['email']) && !empty($_POST['phone']) && !empty($_POST['ticket'])) {
+    try {
+        $rut = strtoupper(str_replace(array('-', '.', "'", " "), '', $_POST['rut']));
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "INSERT INTO `person`(`personName`, `personLastName`, `personRut`, `personEmail`, `personPhone`, `personExtra`) VALUES ('".$_POST['name']."','".$_POST['ln']."','".$rut."','".$_POST['email']."','".$_POST['phone']."','".$_POST['extra']."')";
+        $sql = "INSERT INTO `person`(`personName`, `personLastName`, `personRut`, `personEmail`, `personPhone`, `personExtra`) VALUES ('" . $_POST['name'] . "','" . $_POST['ln'] . "','" . $rut . "','" . $_POST['email'] . "','" . $_POST['phone'] . "','" . $_POST['extra'] . "')";
         $conn->exec($sql);
-           try {
-               $stmt = $conn->query("SELECT * FROM `person` WHERE `personEmail` ='".$_POST['email']."'");
-               while ($row = $stmt->fetch()) {
-                   generateCost($_POST['email'], $_POST['rut'], $_POST['name'], $_POST['lastName'], $row['personId'], $_POST['ticket']);
-               }
-           } catch(PDOException $e) {
-           }
-       } catch (PDOException $e) {
-           echo $sql . "<br>" . $e->getMessage();
-       }
+        try {
+            $stmt = $conn->query("SELECT * FROM `person` WHERE `personEmail` ='" . $_POST['email'] . "'");
+            while ($row = $stmt->fetch()) {
+                generateCost($_POST['email'], $_POST['rut'], $_POST['name'], $_POST['lastName'], $row['personId'], $_POST['ticket']);
+            }
+        } catch (PDOException $e) {
+        }
+    } catch (PDOException $e) {
+        echo $sql . "<br>" . $e->getMessage();
+    }
 }
 
 ?>
