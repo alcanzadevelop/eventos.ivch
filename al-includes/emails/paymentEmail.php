@@ -139,7 +139,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
   </tr>
   <tr  >
     <td align='center' class='center-text'>
-      <img style='width:190px;border:0px;display: inline!important;' src='https://eventos.ivch.cl/img/logo.png' width='190' border='0' alt='intro'>
+      <img style='width:190px;border:0px;display: inline!important;' src='http://eventos.ivch.cl/img/logo.png' width='190' border='0' alt='intro'>
     </td>
   </tr>
   <tr  >

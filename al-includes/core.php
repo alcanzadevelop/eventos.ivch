@@ -1,8 +1,8 @@
 <?php
 
 $servername = "localhost";
-$username = "root";
-$password = "root";
+$username = "u260263254_Eventos";
+$password = "u260263254Eventos";
 $conn = "";
 
 try {
