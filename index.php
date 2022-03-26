@@ -14,8 +14,8 @@ function generateCost($email, $rut, $name, $lastName, $id, $ticket){
          'subject' => $ticket,
          'amount' => 1,  
          'payment' => 1, 
-         'urlreturn' => 'http://localhost:8888/eventos.ivch/api.php',
-         'urlnotify' => 'http://localhost:8888/eventos.ivch/api.php',
+         'urlreturn' => 'https://eventos.ivch.cl/api.php',
+         'urlnotify' => 'https://eventos.ivch.cl/api.php',
          'marketplace' => '2af2b5f966c011b14179b1a1cfb0f37068aca6481fe1a240a8fd6af3f2e44a39'
          ],  
        'headers' => [                                  
