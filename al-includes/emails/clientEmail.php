@@ -1,10 +1,19 @@
 <?php
 
-function clientEmail($conn, $personEmail, $subject){
+function clientEmail($conn, $personEmail, $subject, $personId){
 	$stmt = $conn->query("SELECT * FROM event WHERE eventId=".$subject);
     while ($row = $stmt->fetch()) {
         $eventName=$row['eventName'];
         $eventDate=$row['eventDate'];
+
+        $stmtX = $conn->query("SELECT * FROM person WHERE personId=".$personId);
+        while ($rowx = $stmtX->fetch()) {
+            $personId=$rowx['personId'];
+            $personName=$rowx['personName'];
+            $personLastName=$rowx['personLastName'];
+            $personRut=$rowx['personRut'];
+            $personPhone=$rowx['personPhone'];
+            $personExtra=$rowx['personExtra'];
 
     $message = "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>
 <html xmlns='http://www.w3.org/1999/xhtml' xmlns:v='urn:schemas-microsoft-com:vml' xmlns:o='urn:schemas-microsoft-com:office:office'>
@@ -167,6 +176,15 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
             Este email confirma tu participación para el siguiente evento:<br/><br/>
             Nombre del Evento:<br/>".$eventName."<br/>
             Fecha del Evento:<br/>".$eventDate."<br/><br/>
+
+            <br/><br/>
+            Tu información Personal: <br/><br/>
+            Nombre: ".$personName."<br/><br/>
+            Apellido: ".$personLastName."<br/><br/>
+            Rut: ".$personRut."<br/><br/>
+            Email: ".$personEmail."<br/><br/>
+            Teléfono: ".$personPhone."<br/><br/>
+
             Te animamos a que puedas tener altas expectativas de lo que será este tiempo. Te recordamos tener pase de movilidad a la mano y este email que confirma tu participación.
           </div>
         
@@ -251,6 +269,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
   $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
   mail($to, $subject, $message, $headers); 
     }
+  }
 }
 
 ?>

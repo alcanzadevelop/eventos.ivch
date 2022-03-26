@@ -12,10 +12,10 @@ function generateCost($email, $rut, $name, $lastName, $id, $ticket){
          'email' => 'finanzas@naturalmentesobrenatural.org', 
          'order' => $id, 
          'subject' => $ticket,
-         'amount' => 1,  
+         'amount' => 5000,  
          'payment' => 1, 
-         'urlreturn' => 'https://eventos.ivch.cl/api.php',
-         'urlnotify' => 'https://eventos.ivch.cl/api.php',
+         'urlreturn' => 'http://eventos.ivch.cl/api.php',
+         'urlnotify' => 'http://eventos.ivch.cl/api.php',
          'marketplace' => '2af2b5f966c011b14179b1a1cfb0f37068aca6481fe1a240a8fd6af3f2e44a39'
          ],  
        'headers' => [                                  
@@ -41,8 +41,9 @@ function getCapacity($conn, $id){
 if(!empty($_POST['name']) && !empty($_POST['ln']) && !empty($_POST['rut']) && !empty($_POST['email']) && !empty($_POST['phone']) && !empty($_POST['ticket']))
 {
    try {
+      $rut = strtoupper(str_replace(array('-', '.', "'", " "), '', $_POST['rut']))
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "INSERT INTO `person`(`personName`, `personLastName`, `personRut`, `personEmail`, `personPhone`, `personExtra`) VALUES ('".$_POST['name']."','".$_POST['ln']."','".$_POST['rut']."','".$_POST['email']."','".$_POST['phone']."','".$_POST['extra']."')";
+        $sql = "INSERT INTO `person`(`personName`, `personLastName`, `personRut`, `personEmail`, `personPhone`, `personExtra`) VALUES ('".$_POST['name']."','".$_POST['ln']."','".$rut."','".$_POST['email']."','".$_POST['phone']."','".$_POST['extra']."')";
         $conn->exec($sql);
            try {
                $stmt = $conn->query("SELECT * FROM `person` WHERE `personEmail` ='".$_POST['email']."'");

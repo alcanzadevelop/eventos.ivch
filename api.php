@@ -71,9 +71,9 @@ function sendEmail($conn, $personId, $subject, $amount)
 {
     $stmt = $conn->query("SELECT * FROM person WHERE personId=".$personId);
     while ($row = $stmt->fetch()) {
-        clientEmail($conn, $row['personEmail'], $subject);
+        clientEmail($conn, $row['personEmail'], $subject, $personId);
         paymentEmail($conn, $personId, $subject);
-        header('location: https://eventos.ivch.cl/exito.php');
+        header('location: http://eventos.ivch.cl/exito.php');
     }
 }
 
