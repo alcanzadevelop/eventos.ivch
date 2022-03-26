@@ -10,14 +10,12 @@ function paymentEmail($conn, $personId, $subject){
         $personEmail=$row['personEmail'];
         $personPhone=$row['personPhone'];
         $personExtra=$row['personExtra'];
-    }
-    $stmtX = $conn->query("SELECT * FROM event WHERE eventId=".$subject);
-    while ($rowx = $stmtX->fetch()) {
-        $eventName=$rowx['eventName'];
-        $eventDate=$rowx['eventDate'];
-    }
-	
-			$message = "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>
+        $stmtX = $conn->query("SELECT * FROM event WHERE eventId=".$subject);
+    	while ($rowx = $stmtX->fetch()) {
+        	$eventName=$rowx['eventName'];
+        	$eventDate=$rowx['eventDate'];
+
+        	$message = "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>
 <html xmlns='http://www.w3.org/1999/xhtml' xmlns:v='urn:schemas-microsoft-com:vml' xmlns:o='urn:schemas-microsoft-com:office:office'>
 <head>
 <!--[if (gte mso 9)|(IE)]>
@@ -259,12 +257,14 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
  $to      = 'conferencia@ivch.cl';
   $subject = 'Nueva entrada a '.$eventName;
   $headers = 'From: conferencia@ivch.cl'       . "\r\n" .
-  		'Bcc: finanzas@ivch.cl' . "\r\n"
+  		'Bcc: finanzas@ivch.cl' . "\r\n" .
         'Reply-To: conferencia@ivch.cl' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
   $headers .= "MIME-Version: 1.0\r\n";
   $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
   mail($to, $subject, $message, $headers); 
+    	}
+    }		
 
 }
 

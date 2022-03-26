@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '50ad6346a94919058978be7fa53e66da9f9f8d28',
+    'reference' => '56b60855e84e33530f45207a8640e2c10c2e6a48',
     'name' => '__root__',
   ),
   'versions' => 
@@ -18,7 +18,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '50ad6346a94919058978be7fa53e66da9f9f8d28',
+      'reference' => '56b60855e84e33530f45207a8640e2c10c2e6a48',
     ),
     'chillerlan/php-qrcode' => 
     array (

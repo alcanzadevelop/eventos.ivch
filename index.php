@@ -12,10 +12,10 @@ function generateCost($email, $rut, $name, $lastName, $id, $ticket){
          'email' => 'finanzas@naturalmentesobrenatural.org', 
          'order' => $id, 
          'subject' => $ticket,
-         'amount' => 10,  
+         'amount' => 1,  
          'payment' => 1, 
-         'urlreturn' => 'https://eventos.ivch.cl/api.php',
-         'urlnotify' => 'https://eventos.ivch.cl/api.php',
+         'urlreturn' => 'http://localhost:8888/eventos.ivch/api.php',
+         'urlnotify' => 'http://localhost:8888/eventos.ivch/api.php',
          'marketplace' => '2af2b5f966c011b14179b1a1cfb0f37068aca6481fe1a240a8fd6af3f2e44a39'
          ],  
        'headers' => [                                  
@@ -31,21 +31,21 @@ function getCapacity($conn, $id){
     while ($row = $stmt->fetch()) {
         $eventName=$row['eventName'];
         $eventCapacity=$row['eventCapacity'];
-    }
-    if($eventCapacity>=1)
-    {
-      echo "<option value='".$id."'>".$eventName."</option>"; 
+        if($eventCapacity>=1)
+       {
+         echo "<option value='".$id."'>".$eventName."</option>"; 
+       }
     }
 }
 
-if(!empty($_POST['name']) && !empty($_POST['lastName']) && !empty($_POST['rut']) && !empty($_POST['email']) && !empty($_POST['phone']) && !empty($_POST['ticket']))
+if(!empty($_POST['name']) && !empty($_POST['ln']) && !empty($_POST['rut']) && !empty($_POST['email']) && !empty($_POST['phone']) && !empty($_POST['ticket']))
 {
    try {
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "INSERT INTO `person`(`personName`, `personLastName`, `personRut`, `personEmail`, `personPhone`, `personExtra`) VALUES ('".$_POST['name']."','".$_POST['lastName']."','".$_POST['rut']."','".$_POST['email']."','".$_POST['phone']."','".$_POST['ticket']."')";
+        $sql = "INSERT INTO `person`(`personName`, `personLastName`, `personRut`, `personEmail`, `personPhone`, `personExtra`) VALUES ('".$_POST['name']."','".$_POST['ln']."','".$_POST['rut']."','".$_POST['email']."','".$_POST['phone']."','".$_POST['extra']."')";
         $conn->exec($sql);
            try {
-               $stmt = $conn->query("SELECT * FROM `person` WHERE `personId` ='".$_POST['memberEmail']."'");
+               $stmt = $conn->query("SELECT * FROM `person` WHERE `personEmail` ='".$_POST['email']."'");
                while ($row = $stmt->fetch()) {
                    generateCost($_POST['email'], $_POST['rut'], $_POST['name'], $_POST['lastName'], $row['personId'], $_POST['ticket']);
                }
@@ -509,13 +509,13 @@ if(!empty($_POST['name']) && !empty($_POST['lastName']) && !empty($_POST['rut'])
                      <img src="img/infodates.png">
                   </div>
                   <div class="col-md-6 front-p">
-                     <form class="registry-form form" method="post" action="#">
+                     <form class="registry-form form" name="buy" method="POST" action="">
                         <h2 class="sub-title-1 mt-150 mb-30">Obtén tu entrada</h2>
                         <div class="col-sm-6">
                            <input placeholder="Nombre" value="" id="name" name="name" type="text" required>
                         </div>
                         <div class="col-sm-6">
-                           <input placeholder="Apellido" value="" id="lastName" name="name" type="text" required>
+                           <input placeholder="Apellido" value="" id="ln" name="ln" type="text" required>
                         </div>
                         <div class="col-sm-6">
                            <input placeholder="Tu Rut" value="" id="rut" name="rut" type="text" required>
@@ -524,10 +524,10 @@ if(!empty($_POST['name']) && !empty($_POST['lastName']) && !empty($_POST['rut'])
                            <input placeholder="Tu WhatsApp" value="" id="phone" name="phone" type="text" required>
                         </div>
                         <div class="col-sm-6">
-                           <input placeholder="Tu Email" value="" id="email" name="email" type="text" required>
+                           <input placeholder="Tu Email" value="" id="email" name="email" type="email" required>
                         </div>
                         <div class="col-sm-6">
-                           <input placeholder="Tu Iglesia" value="" id="extra" name="phone" type="text">
+                           <input placeholder="Tu Iglesia" value="" id="extra" name="extra" type="text">
                         </div>
                         <div class="col-sm-6">
                            <div class="block-select">
@@ -539,7 +539,7 @@ if(!empty($_POST['name']) && !empty($_POST['lastName']) && !empty($_POST['rut'])
                            </div>
                         </div>
                         <div class="col-sm-12">
-                           <input value="Obtén tu entrada" class=" but submit" type="submit">
+                           <input value="Obtén tu entrada" class="but submit" type="submit">
                         </div>
                         <div class="col-sm-12">
                            <p>* No compartiremos tu información.</p>

@@ -31,7 +31,7 @@ function createTicket($conn, $personId, $subject){
 function getTicketId($conn, $personId){
     $stmt = $conn->query("SELECT ticketId FROM ticket WHERE personId=".$personId);
     while ($row = $stmt->fetch()) {
-        $value=$row['ticketId']);
+        $value=$row['ticketId'];
     }
     return $value;
 }
@@ -57,7 +57,7 @@ function updateTicket($conn, $personId){
 function updateCapacity($conn, $eventId){
     $stmt = $conn->query("SELECT * FROM event WHERE eventId=".$eventId);
     while ($row = $stmt->fetch()) {
-        $value=$row['eventCapacity']);
+        $value=$row['eventCapacity'];
     }
     $theValue=$value-1;
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

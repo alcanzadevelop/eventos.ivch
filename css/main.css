@@ -693,6 +693,24 @@ input[type="text"],
     color: #ffffff;
     height: 45px;
 }
+input[type="email"],
+.registry-form .block-select {
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid rgba(255, 255, 255, 0);
+    margin-bottom: 25px;
+    outline: 0 none;
+    overflow: hidden;
+    padding: 0 25px;
+    resize: none;
+    max-width: 90%;
+    border-radius: 25px;
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    -ms-border-radius: 25px;
+    -o-border-radius: : 25px;
+    color: #ffffff;
+    height: 45px;
+}
 .registry-form select {
     background: none;
     border: 1px solid rgba(255, 255, 255, 0);

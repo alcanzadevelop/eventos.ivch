@@ -5,7 +5,6 @@ function clientEmail($conn, $personEmail, $subject){
     while ($row = $stmt->fetch()) {
         $eventName=$row['eventName'];
         $eventDate=$row['eventDate'];
-    }
 
     $message = "<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.01 Transitional//EN' 'http://www.w3.org/TR/html4/loose.dtd'>
 <html xmlns='http://www.w3.org/1999/xhtml' xmlns:v='urn:schemas-microsoft-com:vml' xmlns:o='urn:schemas-microsoft-com:office:office'>
@@ -166,8 +165,8 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
         
           <div>
             Este email confirma tu participación para el siguiente evento:<br/><br/>
-            Nombre del Evento:".$eventName."<br/><br/>
-            Fecha del Evento:".$eventDate."<br/><br/><br/>
+            Nombre del Evento:<br/>".$eventName."<br/>
+            Fecha del Evento:<br/>".$eventDate."<br/><br/>
             Te animamos a que puedas tener altas expectativas de lo que será este tiempo. Te recordamos tener pase de movilidad a la mano y este email que confirma tu participación.
           </div>
         
@@ -251,7 +250,7 @@ u + #body a {color:inherit;text-decoration:none;font-size:inherit;font-family:in
   $headers .= "MIME-Version: 1.0\r\n";
   $headers .= "Content-Type: text/html; charset=UTF-8\r\n";
   mail($to, $subject, $message, $headers); 
-
+    }
 }
 
 ?>
