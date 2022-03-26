@@ -123,7 +123,7 @@ if (!empty($_POST['name']) && !empty($_POST['ln']) && !empty($_POST['rut']) && !
                               <li><a class="scroll" href="#informacion">Información</a></li>
                               <li><a class="scroll" href="#topics">Invitado</a></li>
                               <li><a class="scroll" href="#schedule">Programa</a></li>
-                              <li><a class="scroll" href="#entrada">Tickets</a></li>
+                              <!-- <li><a class="scroll" href="#entrada">Tickets</a></li>-->
                            </ul>
                         </nav>
                      </div>
@@ -312,7 +312,7 @@ if (!empty($_POST['name']) && !empty($_POST['ln']) && !empty($_POST['rut']) && !
          </section>
          <!--End about section-->
          <!--Topics section-->
-         <section id="topics" class="topics pt-120 pb-60  brd-bottom">
+         <section id="topics" class="topics pt-30 pb-60  brd-bottom">
             <!--Container-->
             <div class="container">
                <!--Row-->
@@ -343,138 +343,7 @@ if (!empty($_POST['name']) && !empty($_POST['ln']) && !empty($_POST['rut']) && !
          </section>
          <!--End topics section-->
          <!--Schedule section-->
-         <section id="schedule" class="schedule pb-120">
-            <!--Container-->
-            <div class="container">
-               <!--Row-->
-               <div class="row">
-                  <div class="col-sm-8 col-sm-offset-2 mb-100 text-center">
-                     <h1 class="title">Programa</h1>
-                     <p class="title-lead mt-10">¡Conoce el programa de nuestra conferencia y crea expectativas del tiempo que tendremos!</p>
-                  </div>
-               </div>
-               <!--End row-->
-            </div>
-            <!--End container-->
-            <!--Container-->
-            <div class="container">
-               <!--Row-->
-               <div class="row">
-                  <div class="col-sm-12">
-                     <h3 class="sub-title-0  mb-25"><span class="gradient-text">Días de Conferencia</span></h3>
-                  </div>
-               </div>
-               <!--End row-->
-            </div>
-            <!--End container-->
-            <!--Container-->
-            <div class="container">
-               <!--Row-->
-               <div class="row">
-                  <div class="col-sm-4 ">
-                     <!--Tabs-->
-                     <ul class="block-tabs">
-                        <li class="active"><i class="et-line-calendar"></i><strong>Viernes</strong>  <span>- 8 Abril 2022</span></li>
-                        <li class=""><i class="et-line-calendar"></i><strong>Sábado</strong>  <span>- 9 Abril 2022</span></li>
-                     </ul>
-                  </div>
-                  <div class="col-sm-8 ">
-                     <ul class="block-tab">
-                        <!--Tab-->
-                        <li class="active">
-                           <div class="block-date"><i class="et-line-calendar"></i><strong>Viernes</strong>  <span>- Exequiel Fernández 1029, Ñuñoa</span></div>
-                           <div class="block-detail">
-                              <span class="time">08:00 - 10:00</span>
-                              <span class="topic">Conference Opening</span>
-                              <div class="block-text">
-                                 <p>Nihilne te nocturnum praesidium Palati, nihil urbis vigilae, nihil timor populi, nihil concursus velit omnium, nihil hic muntissimus habendi senatus locus, nihil horum ora vultusque moverunt, patere tua consilia non sentis constrictam nihil hic muntissimus.</p>
-                                 <span class="speaker"> <strong >Speaker</strong> : <p class="gradient-text ">Adam Blanco</p> </span>
-                              </div>
-                           </div>
-                           <div class="block-detail">
-                              <span class="time">10:30 - 12:30</span>
-                              <span class="topic">Photography Foundations</span>
-                              <div class="block-text">
-                                 <p>Nihilne te nocturnum praesidium Palati, nihil urbis vigilae, nihil timor populi, nihil concursus velit omnium, nihil hic muntissimus habendi senatus locus, nihil horum ora vultusque moverunt, patere tua consilia non sentis constrictam nihil hic muntissimus.</p>
-                                 <span class="speaker"> <strong >Speaker</strong> : <a href="#" class="gradient-text ">Luca Palermo</a> </span>
-                              </div>
-                           </div>
-                           <div class="block-detail">
-                              <span class="time">13:00</span>
-                              <span class="topic">Lunch Time</span>
-                           </div>
-                           <div class="block-detail">
-                              <span class="time">15:00 - 16:30</span>
-                              <span class="topic">Retouching</span>
-                              <div class="block-text">
-                                 <p>Nihilne te nocturnum praesidium Palati, nihil urbis vigilae, nihil timor populi, nihil concursus velit omnium, nihil hic muntissimus habendi senatus locus, nihil horum ora vultusque moverunt, patere tua consilia non sentis constrictam nihil hic muntissimus.</p>
-                                 <span class="speaker"> <strong >Speaker</strong> : <a href="#" class="gradient-text "> Lina Blamberg </a> </span>
-                              </div>
-                           </div>
-                           <div class="block-detail">
-                              <span class="time">17:00</span>
-                              <span class="topic">Coffee Break</span>
-                           </div>
-                           <div class="block-detail">
-                              <span class="time">17:30 - 18:00</span>
-                              <span class="topic">Raw Processing</span>
-                              <div class="block-text">
-                                 <p>Nihilne te nocturnum praesidium Palati, nihil urbis vigilae, nihil timor populi, nihil concursus velit omnium, nihil hic muntissimus habendi senatus locus, nihil horum ora vultusque moverunt, patere tua consilia non sentis constrictam nihil hic muntissimus.</p>
-                                 <span class="speaker"> <strong >Speaker</strong> : <a href="#" class="gradient-text "> Emilie Lippelt </a> </span>
-                              </div>
-                           </div>
-                        </li>
-                        <!--Tab-->
-                        <li>
-                           <div class="block-date"><i class="et-line-calendar"></i><strong>Sábado</strong>  <span>- Bosques Nativos 5758, Peñalolén</span></div>
-                           <div class="block-detail">
-                              <span class="time">08:00 - 10:00</span>
-                              <span class="topic">Cameras + Gear</span>
-                              <div class="block-text">
-                                 <p>Nihilne te nocturnum praesidium Palati, nihil urbis vigilae, nihil timor populi, nihil concursus velit omnium, nihil hic muntissimus habendi senatus locus, nihil horum ora vultusque moverunt, patere tua consilia non sentis constrictam nihil hic muntissimus.</p>
-                                 <span class="speaker"> <strong >Speaker</strong> : <a href="#" class="gradient-text ">Adam Blanco</a> </span>
-                              </div>
-                           </div>
-                           <div class="block-detail">
-                              <span class="time">10:30 - 12:30</span>
-                              <span class="topic">Night + Low Light</span>
-                              <div class="block-text">
-                                 <p>Nihilne te nocturnum praesidium Palati, nihil urbis vigilae, nihil timor populi, nihil concursus velit omnium, nihil hic muntissimus habendi senatus locus, nihil horum ora vultusque moverunt, patere tua consilia non sentis constrictam nihil hic muntissimus.</p>
-                                 <span class="speaker"> <strong >Speaker</strong> : <a href="#" class="gradient-text ">Luca Palermo</a> </span>
-                              </div>
-                           </div>
-                           <div class="block-detail">
-                              <span class="time">13:00</span>
-                              <span class="topic">Lunch Time</span>
-                           </div>
-                           <div class="block-detail">
-                              <span class="time">15:00 - 16:30</span>
-                              <span class="topic">Lighting</span>
-                              <div class="block-text">
-                                 <p>Nihilne te nocturnum praesidium Palati, nihil urbis vigilae, nihil timor populi, nihil concursus velit omnium, nihil hic muntissimus habendi senatus locus, nihil horum ora vultusque moverunt, patere tua consilia non sentis constrictam nihil hic muntissimus.</p>
-                                 <span class="speaker"> <strong >Speaker</strong> : <a href="#" class="gradient-text "> Lina Blamberg </a> </span>
-                              </div>
-                           </div>
-                           <div class="block-detail">
-                              <span class="time">17:00</span>
-                              <span class="topic">Coffee Break</span>
-                           </div>
-                           <div class="block-detail">
-                              <span class="time">17:30 - 18:00</span>
-                              <span class="topic">Color Correction</span>
-                              <div class="block-text">
-                                 <p>Nihilne te nocturnum praesidium Palati, nihil urbis vigilae, nihil timor populi, nihil concursus velit omnium, nihil hic muntissimus habendi senatus locus, nihil horum ora vultusque moverunt, patere tua consilia non sentis constrictam nihil hic muntissimus.</p>
-                                 <span class="speaker"> <strong >Speaker</strong> : <a href="#" class="gradient-text "> Emilie Lippelt </a> </span>
-                              </div>
-                           </div>
-                        </li>
-                     </ul>
-                  </div>
-               </div>
-               <!--End row-->
-            </div>
-            <!--End container-->
-         </section>
+
          <!--End schedule section-->
          <!--Counter section-->
          <section class="counter pt-120 pb-120 overlay parallax">
