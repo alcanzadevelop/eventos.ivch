@@ -1,5 +1,10 @@
 <?php
 
+require_once('al-includes/core.php');
+require 'al-includes/emails/clientEmail.php';
+require 'al-includes/emails/paymentEmail.php';
+require 'vendor/autoload.php';
+
 function generateCost($email, $rut, $name, $lastName, $id, $ticket){
    $client = new \GuzzleHttp\Client();         
      $body = $client->request('POST', 'https://app.payku.cl/api/transaction/', [
@@ -7,7 +12,7 @@ function generateCost($email, $rut, $name, $lastName, $id, $ticket){
          'email' => 'finanzas@naturalmentesobrenatural.org', 
          'order' => $id, 
          'subject' => $ticket,
-         'amount' => 5000,  
+         'amount' => 10,  
          'payment' => 1, 
          'urlreturn' => 'https://eventos.ivch.cl/api.php',
          'urlnotify' => 'https://eventos.ivch.cl/api.php',
@@ -19,6 +24,18 @@ function generateCost($email, $rut, $name, $lastName, $id, $ticket){
      ])->getBody();   
    $response = json_decode($body);
    header('Location: '.$response->url);
+}
+
+function getCapacity($conn, $id){
+   $stmt = $conn->query("SELECT * FROM event WHERE eventId=".$id);
+    while ($row = $stmt->fetch()) {
+        $eventName=$row['eventName'];
+        $eventCapacity=$row['eventCapacity'];
+    }
+    if($eventCapacity>=1)
+    {
+      echo "<option value='".$id."'>".$eventName."</option>"; 
+    }
 }
 
 if(!empty($_POST['name']) && !empty($_POST['lastName']) && !empty($_POST['rut']) && !empty($_POST['email']) && !empty($_POST['phone']) && !empty($_POST['ticket']))
@@ -510,17 +527,14 @@ if(!empty($_POST['name']) && !empty($_POST['lastName']) && !empty($_POST['rut'])
                            <input placeholder="Tu Email" value="" id="email" name="email" type="text" required>
                         </div>
                         <div class="col-sm-6">
-                           <input placeholder="Tu Email" value="" id="email" name="email" type="text" required>
-                        </div>
-                        <div class="col-sm-6">
                            <input placeholder="Tu Iglesia" value="" id="extra" name="phone" type="text">
                         </div>
                         <div class="col-sm-6">
                            <div class="block-select">
                               <select required name="ticket">
                                  <option value="" disabled selected hidden>Selecciona tu Entrada</option>
-                                 <option value="8">Viernes 8 (Para Santiago)</option>
-                                 <option value="9">Sábado 9 (Para Regiones)</option>
+                                 <?php getCapacity($conn, 1); ?>
+                                 <?php getCapacity($conn, 2); ?>
                               </select>
                            </div>
                         </div>
