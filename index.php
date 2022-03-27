@@ -47,7 +47,7 @@ if (!empty($_POST['name']) && !empty($_POST['ln']) && !empty($_POST['rut']) && !
         try {
             $stmt = $conn->query("SELECT * FROM `person` WHERE `personEmail` ='" . $_POST['email'] . "'");
             while ($row = $stmt->fetch()) {
-                generateCost($_POST['email'], $_POST['rut'], $_POST['name'], $_POST['lastName'], $row['personId'], $_POST['ticket']);
+                generateCost($row['personId'], $_POST['ticket']);
             }
         } catch (PDOException $e) {
         }
