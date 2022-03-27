@@ -17,9 +17,17 @@ function checkRecordPayment($conn, $id){
         ]
     ])->getBody();
     $response = json_decode($body);
-    createTicket($conn, $response->order, $response->subject);
-    $ticketId = getTicketId($conn, $response->order);
-    recordPayment($conn, $response->order, $id, $response->subject, $response->amount, $response->created_at, $response->status, $ticketId);
+    if($response->status=="success"){
+        createTicket($conn, $response->order, $response->subject);
+        $ticketId = getTicketId($conn, $response->order);
+        recordPayment($conn, $response->order, $id, $response->subject, $response->amount, $response->created_at, $response->status, $ticketId);
+    }
+    else{
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $sql = "INSERT INTO `transaction` (`transactionId`, `personId`, `ticketId`, `transactionSubject`, `transactionAmount`, `transactionDate`, `transactionStatus`) VALUES (".$id.", ".$response->subject.",0,'".$response->subject."',".$response->amount.",'".$response->created_at."','".$response->status."')";
+        $conn->exec($sql);
+        header('location: http://eventos.ivch.cl/');
+    }
 }
 
 function createTicket($conn, $personId, $subject){
