@@ -40,15 +40,14 @@ function recordPayment($conn, $personId, $transactionId, $subject, $amount, $cre
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $sql = "INSERT INTO `transaction` (`transactionId`, `personId`, `ticketId`, `transactionSubject`, `transactionAmount`, `transactionDate`, `transactionStatus`) VALUES (".$transactionId.", ".$personId.",".$ticketId.",'".$subject."',".$amount.",'".$created_at."','".$status."')";
     $conn->exec($sql);
-    updateTicket($conn, $personId);
+    updateTicket($conn, $personId, $ticketId);
     updateCapacity($conn, $subject);
-    sendEmail($conn, $personId, $subject, $amount);
+    sendEmail($conn, $personId, $subject);
 }
 
-function updateTicket($conn, $personId){
-    $theId=getTicketId($conn, $personId);
+function updateTicket($conn, $personId, $ticketId){
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $sql = "UPDATE ticket SET ticketState='VALID' WHERE personId=".$personId." AND ticketId=".$theId;
+    $sql = "UPDATE ticket SET ticketState='VALID' WHERE personId=".$personId." AND ticketId=".$ticketId;
     $stmt = $conn->prepare($sql);
     $stmt->execute();
     return true;
@@ -67,7 +66,7 @@ function updateCapacity($conn, $eventId){
     return true;
 }
 
-function sendEmail($conn, $personId, $subject, $amount)
+function sendEmail($conn, $personId, $subject)
 {
     $stmt = $conn->query("SELECT * FROM person WHERE personId=".$personId);
     while ($row = $stmt->fetch()) {

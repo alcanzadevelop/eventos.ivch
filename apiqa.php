@@ -29,29 +29,23 @@ function createTicket($conn, $personId, $subject){
 }
 
 function getTicketId($conn, $personId){
-    $stmt = $conn->query("SELECT ticketId FROM ticket WHERE personId=".$personId);
+    $stmt = $conn->query("SELECT * FROM ticket WHERE personId=".$personId);
     while ($row = $stmt->fetch()) {
         $value=$row['ticketId'];
     }
     return $value;
 }
 
-function recordPayment($conn, $personId, $transactionId, $subject, $amount, $created_at, $status, $ticketId){
-    $sql = "INSERT INTO `transaction` (`transactionId`, `personId`, `ticketId`, `transactionSubject`, `transactionAmount`, `transactionDate`, `transactionStatus`) VALUES (".$transactionId.", ".$personId.",".$ticketId.",'".$subject."',".$amount.",'".$created_at."','".$status."')";
-    echo "Cree la Transacción: ".$sql."<br/>";
-    updateTicket($conn, $personId);
-    updateCapacity($conn, $subject);
-}
-
-function updateTicket($conn, $personId){
+function updateTicket($conn, $personId, $theId){
     $sql = "UPDATE ticket SET ticketState='VALID' WHERE personId=".$personId." AND ticketId=".$theId;
     echo "Actualicé el estado del Ticket: ".$sql."<br/>";
     return true;
 }
 
 function updateCapacity($conn, $eventId){
-    $sql="SELECT * FROM event WHERE eventId=".$eventId);
+    $sql="SELECT * FROM event WHERE eventId=".$eventId;
     echo "El Id del Evento es: ".$sql."<br/>";
+    $stmt = $conn->query("SELECT * FROM event WHERE eventId=".$eventId);
     while ($row = $stmt->fetch()) {
         $value=$row['eventCapacity'];
     }
@@ -62,5 +56,13 @@ function updateCapacity($conn, $eventId){
     echo "Y lo actualicé con: ".$sql."<br/>";
     return true;
 }
+
+function recordPayment($conn, $personId, $transactionId, $subject, $amount, $created_at, $status, $ticketId){
+    $sql = "INSERT INTO `transaction` (`transactionId`, `personId`, `ticketId`, `transactionSubject`, `transactionAmount`, `transactionDate`, `transactionStatus`) VALUES (".$transactionId.", ".$personId.",".$ticketId.",'".$subject."',".$amount.",'".$created_at."','".$status."')";
+    echo "Cree la Transacción: ".$sql."<br/>";
+    updateTicket($conn, $personId);
+    updateCapacity($conn, $subject);
+}
+
 
 ?>
